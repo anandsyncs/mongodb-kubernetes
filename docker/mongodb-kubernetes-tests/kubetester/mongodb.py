@@ -287,8 +287,6 @@ class MongoDB(CustomObject, MongoDBCommon):
         if "opsManager" in self["spec"]:
             del self["spec"]["opsManager"]
 
-        ensure_nested_objects(self, ["spec", "cloudManager", "configMapRef"])
-
         if src_project_config_map_name is None and "cloudManager" in self["spec"]:
             src_project_config_map_name = self["spec"]["cloudManager"]["configMapRef"]["name"]
 
@@ -302,6 +300,7 @@ class MongoDB(CustomObject, MongoDBCommon):
                 raise e
 
         new_project_config_map_name = f"{self.name}-project-config"
+        ensure_nested_objects(self, ["spec", "cloudManager", "configMapRef"])
         self["spec"]["cloudManager"]["configMapRef"]["name"] = new_project_config_map_name
 
         src_cm.update({"projectName": f"{self.namespace}-{project_name}"})
