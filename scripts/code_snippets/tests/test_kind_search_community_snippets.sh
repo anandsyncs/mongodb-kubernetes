@@ -12,10 +12,8 @@ export _SNIPPETS_OUTPUT_DIR
 mkdir -p "${_SNIPPETS_OUTPUT_DIR}"
 
 dump_logs() {
-  source scripts/evergreen/e2e/dump_diagnostic_information.sh
   if [[ "${SKIP_DUMP:-"false"}" != "true" ]]; then
-    dump_all_non_default_namespaces "$@"
-  echo
+    scripts/evergreen/e2e/dump_diagnostic_information_from_all_namespaces.sh "${K8S_CTX}"
   fi
 }
 trap dump_logs EXIT

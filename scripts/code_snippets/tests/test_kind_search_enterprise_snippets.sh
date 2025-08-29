@@ -12,10 +12,8 @@ export _SNIPPETS_OUTPUT_DIR
 mkdir -p "${_SNIPPETS_OUTPUT_DIR}"
 
 dump_logs() {
-  source scripts/evergreen/e2e/dump_diagnostic_information.sh
   if [[ "${SKIP_DUMP:-"false"}" != "true" ]]; then
-    dump_all_non_default_namespaces "$@"
-  echo
+    scripts/evergreen/e2e/dump_diagnostic_information_from_all_namespaces.sh "${K8S_CTX}"
   fi
 }
 trap dump_logs EXIT
@@ -32,7 +30,6 @@ echo "Sourcing env variables for ${CODE_SNIPPETS_FLAVOR} flavor"
 # shellcheck disable=SC1090
 test -f "${test_dir}/env_variables_${CODE_SNIPPETS_FLAVOR}.sh" && source "${test_dir}/env_variables_${CODE_SNIPPETS_FLAVOR}.sh"
 
-export MDB_RESOURCE_NAME="mdbc-rs"
 export MDB_CONNECTION_STRING="mongodb://mdb-user:${MDB_USER_PASSWORD}@${MDB_RESOURCE_NAME}-0.${MDB_RESOURCE_NAME}-svc.${MDB_NS}.svc.cluster.local:27017/?replicaSet=${MDB_RESOURCE_NAME}"
 
 ${test_dir}/test.sh

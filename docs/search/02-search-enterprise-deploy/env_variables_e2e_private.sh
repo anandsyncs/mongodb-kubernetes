@@ -6,10 +6,6 @@ OPERATOR_ADDITIONAL_HELM_VALUES="$(get_operator_helm_values | tr ' ' ',')"
 export OPERATOR_ADDITIONAL_HELM_VALUES
 export OPERATOR_HELM_CHART="${PROJECT_DIR}/helm_chart"
 
-export MDB_NS="${NAMESPACE}"
-export MDB_OPS_MANAGER_CONFIG_MAP_NAME="my-project"
-export MDB_OPS_MANAGER_CREDENTIALS_SECRET_NAME="my-credentials"
-
 export OPS_MANAGER_API_URL="${OM_BASE_URL}"
 export OPS_MANAGER_API_USER="${OM_USER}"
 export OPS_MANAGER_API_KEY="${OM_API_KEY}"

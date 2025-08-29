@@ -2,6 +2,7 @@
 kubectl --context "${K8S_CTX}" --namespace "${MDB_NS}" \
   create secret generic mdb-admin-user-password \
   --from-literal=password="${MDB_ADMIN_USER_PASSWORD}"
+
 kubectl apply --context "${K8S_CTX}" -n "${MDB_NS}" -f - <<EOF
 apiVersion: mongodb.com/v1
 kind: MongoDBUser

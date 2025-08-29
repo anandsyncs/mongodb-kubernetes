@@ -10,8 +10,8 @@ spec:
   type: ReplicaSet
   opsManager:
     configMapRef:
-      name: ${MDB_OPS_MANAGER_CONFIG_MAP_NAME}
-  credentials: ${MDB_OPS_MANAGER_CREDENTIALS_SECRET_NAME}
+      name: om-project
+  credentials: om-credentials
   security:
     authentication:
       enabled: true
