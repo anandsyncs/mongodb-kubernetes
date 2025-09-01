@@ -6,7 +6,3 @@ export PRERELEASE_IMAGE_PULLSECRET="${COMMUNITY_PRIVATE_PREVIEW_PULLSECRET_DOCKE
 export OPERATOR_ADDITIONAL_HELM_VALUES="registry.imagePullSecrets=prerelease-image-pullsecret"
 export OPERATOR_HELM_CHART="oci://quay.io/mongodb/staging/mongodb-kubernetes:${PRERELEASE_VERSION}"
 
-export OPS_MANAGER_API_URL="${OM_BASE_URL}"
-export OPS_MANAGER_API_USER="${OM_USER}"
-export OPS_MANAGER_API_KEY="${OM_API_KEY}"
-export OPS_MANAGER_ORG_ID="${OM_ORGID}"
