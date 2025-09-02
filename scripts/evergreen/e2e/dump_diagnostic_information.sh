@@ -6,10 +6,7 @@ set -Eeou pipefail
 ## the kubectl commands fails.
 set +e
 
-set -x
-
 source scripts/funcs/printing
-
 
 _dump_all_non_default_namespaces() {
     local context="${1}"
@@ -110,7 +107,8 @@ dump_objects() {
 
     # Capture output first to check if it contains actual resources
     local temp_output
-    temp_output=$(kubectl --context="${context}" -n "${namespace}" "${action}" "${object}" 2>&1)
+    # shellcheck disable=SC2086
+    temp_output=$(kubectl --context="${context}" -n "${namespace}" ${action} "${object}" 2>&1)
 
     # Check if output contains actual resources (not just empty list)
     # Skip if it's an empty YAML list (contains "items: []")
@@ -126,7 +124,8 @@ dump_objects() {
       } > "${out_file}"
     else
       header "${msg}"
-      kubectl --context="${context}" -n "${namespace}" "${action}" "${object}" 2>&1
+      # shellcheck disable=SC2086
+      kubectl --context="${context}" -n "${namespace}" ${action} "${object}" 2>&1
     fi
 }
 
