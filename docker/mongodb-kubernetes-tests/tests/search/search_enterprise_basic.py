@@ -1,4 +1,6 @@
+import yaml
 from kubetester import create_or_update_secret, try_load
+from kubetester.kubetester import KubernetesTester
 from kubetester.kubetester import fixture as yaml_fixture
 from kubetester.mongodb import MongoDB
 from kubetester.mongodb_search import MongoDBSearch
@@ -140,30 +142,40 @@ def test_create_search_resource(mdbs: MongoDBSearch):
 def test_wait_for_database_resource_ready(mdb: MongoDB):
     mdb.assert_abandons_phase(Phase.Running, timeout=1800)
     mdb.assert_reaches_phase(Phase.Running, timeout=1800)
-    SearchTester(get_connection_string(mdb, ADMIN_USER_NAME, ADMIN_USER_PASSWORD)).assert_search_enabled()
 
-
-@fixture(scope="function")
-def sample_movies_helper(request, mdb: MongoDB) -> SampleMoviesSearchHelper:
-    credentials = (USER_NAME, USER_PASSWORD)
-    if request.node.get_closest_marker("use_admin_user"):
-        credentials = (ADMIN_USER_NAME, ADMIN_USER_PASSWORD)
-    return movies_search_helper.SampleMoviesSearchHelper(SearchTester(get_connection_string(mdb, *credentials)))
+    for idx in range(mdb.get_members()):
+        mongod_config = yaml.safe_load(
+            KubernetesTester.run_command_in_pod_container(
+                f"{mdb.name}-{idx}", mdb.namespace, ["cat", "/data/automation-mongod.conf"]
+            )
+        )
+        setParameter = mongod_config.get("setParameter", {})
+        assert (
+            "mongotHost" in setParameter and "searchIndexManagementHostAndPort" in setParameter
+        ), "mongot parameters not found in mongod config"
 
 
 @mark.e2e_search_enterprise_basic
-@mark.use_admin_user
-def test_search_restore_sample_database(sample_movies_helper: SampleMoviesSearchHelper):
+def test_search_restore_sample_database(mdb: MongoDB):
+    sample_movies_helper = movies_search_helper.SampleMoviesSearchHelper(
+        SearchTester(get_connection_string(mdb, ADMIN_USER_NAME, ADMIN_USER_PASSWORD))
+    )
     sample_movies_helper.restore_sample_database()
 
 
 @mark.e2e_search_enterprise_basic
-def test_search_create_search_index(sample_movies_helper: SampleMoviesSearchHelper):
+def test_search_create_search_index(mdb: MongoDB):
+    sample_movies_helper = movies_search_helper.SampleMoviesSearchHelper(
+        SearchTester(get_connection_string(mdb, USER_NAME, USER_PASSWORD))
+    )
     sample_movies_helper.create_search_index()
 
 
 @mark.e2e_search_enterprise_basic
-def test_search_assert_search_query(sample_movies_helper: SampleMoviesSearchHelper):
+def test_search_assert_search_query(mdb: MongoDB):
+    sample_movies_helper = movies_search_helper.SampleMoviesSearchHelper(
+        SearchTester(get_connection_string(mdb, USER_NAME, USER_PASSWORD))
+    )
     sample_movies_helper.assert_search_query(retry_timeout=60)
 
 
