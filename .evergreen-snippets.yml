@@ -13,12 +13,14 @@ variables:
 
   - &setup_and_teardown_group_kind_code_snippets
     setup_task_can_fail_task: true
+    setup_group_can_fail_task: true
     setup_group:
       - func: clone
       - func: cleanup_exec_environment
       - func: download_kube_tools
       - func: configure_docker_auth
       - func: setup_kubernetes_environment
+      - func: python_venv
       - func: setup_cloud_qa
     teardown_task:
       - func: upload_e2e_logs
