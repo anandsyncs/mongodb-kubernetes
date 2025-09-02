@@ -6,6 +6,8 @@ set -Eeou pipefail
 ## the kubectl commands fails.
 set +e
 
+set -x
+
 source scripts/funcs/printing
 
 
