@@ -1,21 +1,41 @@
-Release "mongodb-kubernetes" does not exist. Installing it now.
+Release "mongodb-kubernetes" has been upgraded. Happy Helming!
 NAME: mongodb-kubernetes
-LAST DEPLOYED: Mon Sep  1 10:24:07 2025
+LAST DEPLOYED: Wed Sep  3 12:41:39 2025
 NAMESPACE: mongodb
 STATUS: deployed
-REVISION: 1
+REVISION: 2
 TEST SUITE: None
 USER-SUPPLIED VALUES:
+agent:
+  version: 108.0.12.8846-1
+community:
+  registry:
+    agent: 268558157000.dkr.ecr.us-east-1.amazonaws.com/dev
 database:
-  version: 68b4b75ce38b3500071ac47e
+  name: mongodb-kubernetes-database
+  version: 68a83a6562a059000707301b
 initAppDb:
-  version: 68b4b75ce38b3500071ac47e
+  version: 68a83a6562a059000707301b
 initDatabase:
-  version: 68b4b75ce38b3500071ac47e
+  version: 68a83a6562a059000707301b
 initOpsManager:
-  version: 68b4b75ce38b3500071ac47e
+  version: 68a83a6562a059000707301b
+managedSecurityContext: false
+mongodb:
+  imageType: ubi9
+  name: mongodb-enterprise-server
 operator:
-  version: 68b4b75ce38b3500071ac47e
+  enablePVCResize: true
+  maxConcurrentReconciles: 10
+  mdbDefaultArchitecture: non-static
+  telemetry:
+    collection:
+      frequency: 1m
+    send:
+      enabled: false
+  version: 68a83a6562a059000707301b
+opsManager:
+  name: mongodb-enterprise-ops-manager-ubi
 registry:
   agent: 268558157000.dkr.ecr.us-east-1.amazonaws.com/dev
   appDb: quay.io/mongodb
@@ -28,14 +48,14 @@ registry:
   opsManager: quay.io/mongodb
 search:
   community:
-    name: community
-    repo: 268558157000.dkr.ecr.eu-west-1.amazonaws.com/mongot
-    version: fbd60fb055dd500058edcb45677ea85d19421f47
+    name: mongot/community
+    repo: 268558157000.dkr.ecr.eu-west-1.amazonaws.com
+    version: 1.53.0-78-g227f2593f
 
 COMPUTED VALUES:
 agent:
   name: mongodb-agent
-  version: 108.0.2.8729-1
+  version: 108.0.12.8846-1
 community:
   agent:
     name: mongodb-agent
@@ -46,7 +66,7 @@ community:
     repo: quay.io/mongodb
   name: mongodb-database
   registry:
-    agent: quay.io/mongodb
+    agent: 268558157000.dkr.ecr.us-east-1.amazonaws.com/dev
   resource:
     members: 3
     name: mongodb-replica-set
@@ -63,20 +83,20 @@ community:
     version: 4.4.0
 database:
   name: mongodb-kubernetes-database
-  version: 68b4b75ce38b3500071ac47e
+  version: 68a83a6562a059000707301b
 initAppDb:
   name: mongodb-kubernetes-init-appdb
-  version: 68b4b75ce38b3500071ac47e
+  version: 68a83a6562a059000707301b
 initDatabase:
   name: mongodb-kubernetes-init-database
-  version: 68b4b75ce38b3500071ac47e
+  version: 68a83a6562a059000707301b
 initOpsManager:
   name: mongodb-kubernetes-init-ops-manager
-  version: 68b4b75ce38b3500071ac47e
+  version: 68a83a6562a059000707301b
 managedSecurityContext: false
 mongodb:
   appdbAssumeOldFormat: false
-  imageType: ubi8
+  imageType: ubi9
   name: mongodb-enterprise-server
   repo: quay.io/mongodb
 multiCluster:
@@ -94,7 +114,7 @@ operator:
   enableClusterMongoDBRoles: true
   enablePVCResize: true
   env: prod
-  maxConcurrentReconciles: 1
+  maxConcurrentReconciles: 10
   mdbDefaultArchitecture: non-static
   name: mongodb-kubernetes-operator
   nodeSelector: {}
@@ -111,15 +131,16 @@ operator:
     collection:
       clusters: {}
       deployments: {}
-      frequency: 1h
+      frequency: 1m
       operators: {}
     send:
+      enabled: false
       frequency: 168h
   tolerations: []
   vaultSecretBackend:
     enabled: false
     tlsSecretRef: ""
-  version: 68b4b75ce38b3500071ac47e
+  version: 68a83a6562a059000707301b
   watchedResources:
   - mongodb
   - opsmanagers
@@ -149,9 +170,9 @@ registry:
   versionUpgradeHook: quay.io/mongodb
 search:
   community:
-    name: community
-    repo: 268558157000.dkr.ecr.eu-west-1.amazonaws.com/mongot
-    version: fbd60fb055dd500058edcb45677ea85d19421f47
+    name: mongot/community
+    repo: 268558157000.dkr.ecr.eu-west-1.amazonaws.com
+    version: 1.53.0-78-g227f2593f
 versionUpgradeHook:
   name: mongodb-kubernetes-operator-version-upgrade-post-start-hook
   version: 1.0.9
@@ -474,7 +495,7 @@ spec:
         - name: image-registries-secret
       containers:
         - name: mongodb-kubernetes-operator
-          image: "268558157000.dkr.ecr.us-east-1.amazonaws.com/dev/mongodb-kubernetes:68b4b75ce38b3500071ac47e"
+          image: "268558157000.dkr.ecr.us-east-1.amazonaws.com/dev/mongodb-kubernetes:68a83a6562a059000707301b"
           imagePullPolicy: Always
           args:
             - -watch-resource=mongodb
@@ -506,7 +527,9 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: MDB_OPERATOR_TELEMETRY_COLLECTION_FREQUENCY
-              value: "1h"
+              value: "1m"
+            - name: MDB_OPERATOR_TELEMETRY_SEND_ENABLED
+              value: "false"
             - name: MDB_OPERATOR_TELEMETRY_SEND_FREQUENCY
               value: "168h"
             - name: CLUSTER_CLIENT_TIMEOUT
@@ -519,25 +542,25 @@ spec:
             - name: INIT_DATABASE_IMAGE_REPOSITORY
               value: 268558157000.dkr.ecr.us-east-1.amazonaws.com/dev/mongodb-kubernetes-init-database
             - name: INIT_DATABASE_VERSION
-              value: 68b4b75ce38b3500071ac47e
+              value: 68a83a6562a059000707301b
             - name: DATABASE_VERSION
-              value: 68b4b75ce38b3500071ac47e
+              value: 68a83a6562a059000707301b
             # Ops Manager
             - name: OPS_MANAGER_IMAGE_REPOSITORY
               value: quay.io/mongodb/mongodb-enterprise-ops-manager-ubi
             - name: INIT_OPS_MANAGER_IMAGE_REPOSITORY
               value: 268558157000.dkr.ecr.us-east-1.amazonaws.com/dev/mongodb-kubernetes-init-ops-manager
             - name: INIT_OPS_MANAGER_VERSION
-              value: 68b4b75ce38b3500071ac47e
+              value: 68a83a6562a059000707301b
             # AppDB
             - name: INIT_APPDB_IMAGE_REPOSITORY
               value: 268558157000.dkr.ecr.us-east-1.amazonaws.com/dev/mongodb-kubernetes-init-appdb
             - name: INIT_APPDB_VERSION
-              value: 68b4b75ce38b3500071ac47e
+              value: 68a83a6562a059000707301b
             - name: OPS_MANAGER_IMAGE_PULL_POLICY
               value: Always
             - name: AGENT_IMAGE
-              value: "268558157000.dkr.ecr.us-east-1.amazonaws.com/dev/mongodb-agent:108.0.2.8729-1"
+              value: "268558157000.dkr.ecr.us-east-1.amazonaws.com/dev/mongodb-agent:108.0.12.8846-1"
             - name: MDB_AGENT_IMAGE_REPOSITORY
               value: "268558157000.dkr.ecr.us-east-1.amazonaws.com/dev/mongodb-agent"
             - name: MONGODB_IMAGE
@@ -545,13 +568,13 @@ spec:
             - name: MONGODB_REPO_URL
               value: quay.io/mongodb
             - name: MDB_IMAGE_TYPE
-              value: ubi8
+              value: ubi9
             - name: PERFORM_FAILOVER
               value: 'true'
             - name: IMAGE_PULL_SECRETS
               value: image-registries-secret
             - name: MDB_MAX_CONCURRENT_RECONCILES
-              value: "1"
+              value: "10"
             - name: POD_NAME
               valueFrom:
                 fieldRef:
@@ -560,7 +583,7 @@ spec:
               value: mongodb-kubernetes-operator
             # Community Env Vars Start
             - name: MDB_COMMUNITY_AGENT_IMAGE
-              value: "quay.io/mongodb/mongodb-agent:108.0.2.8729-1"
+              value: "268558157000.dkr.ecr.us-east-1.amazonaws.com/dev/mongodb-agent:108.0.2.8729-1"
             - name: VERSION_UPGRADE_HOOK_IMAGE
               value: "quay.io/mongodb/mongodb-kubernetes-operator-version-upgrade-post-start-hook:1.0.9"
             - name: READINESS_PROBE_IMAGE
@@ -573,9 +596,9 @@ spec:
               value: "ubi8"
             # Community Env Vars End
             - name: MDB_SEARCH_COMMUNITY_REPO_URL
-              value: "268558157000.dkr.ecr.eu-west-1.amazonaws.com/mongot"
+              value: "268558157000.dkr.ecr.eu-west-1.amazonaws.com"
             - name: MDB_SEARCH_COMMUNITY_NAME
-              value: "community"
+              value: "mongot/community"
             - name: MDB_SEARCH_COMMUNITY_VERSION
-              value: "fbd60fb055dd500058edcb45677ea85d19421f47"
+              value: "1.53.0-78-g227f2593f"
 

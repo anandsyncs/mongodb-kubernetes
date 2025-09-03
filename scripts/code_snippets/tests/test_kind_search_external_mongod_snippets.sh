@@ -28,3 +28,10 @@ export MDB_RESOURCE_NAME="mdbc-rs"
 export MDB_CONNECTION_STRING="mongodb://mdb-user:${MDB_USER_PASSWORD}@${MDB_RESOURCE_NAME}-0.${MDB_RESOURCE_NAME}-svc.${MDB_NS}.svc.cluster.local:27017/?replicaSet=${MDB_RESOURCE_NAME}"
 
 ${test_dir}/test.sh
+
+test_dir="./docs/search/03-search-query-usage"
+echo "Sourcing env variables for ${CODE_SNIPPETS_FLAVOR} flavor"
+# shellcheck disable=SC1090
+test -f "${test_dir}/env_variables_${CODE_SNIPPETS_FLAVOR}.sh" && source "${test_dir}/env_variables_${CODE_SNIPPETS_FLAVOR}.sh"
+
+${test_dir}/test.sh
