@@ -1,13 +1,65 @@
 Release "mongodb-kubernetes" does not exist. Installing it now.
 NAME: mongodb-kubernetes
+<<<<<<<< HEAD:scripts/code_snippets/tests/outputs/test_kind_search_external_mongod_snippets/04_0100_install_operator.out
+LAST DEPLOYED: Thu Sep  4 16:47:34 2025
+========
 LAST DEPLOYED: Mon Sep  1 19:22:18 2025
+>>>>>>>> fealebenpae/enterprise-search-snippets:scripts/code_snippets/tests/outputs/test_kind_search_community_snippets/01_0100_install_operator.out
 NAMESPACE: mongodb
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 USER-SUPPLIED VALUES:
+<<<<<<<< HEAD:scripts/code_snippets/tests/outputs/test_kind_search_external_mongod_snippets/04_0100_install_operator.out
+agent:
+  version: 108.0.12.8846-1
+community:
+  registry:
+    agent: 268558157000.dkr.ecr.us-east-1.amazonaws.com/dev
+database:
+  name: mongodb-kubernetes-database
+  version: 68a83a6562a059000707301b
+initAppDb:
+  version: 68a83a6562a059000707301b
+initDatabase:
+  version: 68a83a6562a059000707301b
+initOpsManager:
+  version: 68a83a6562a059000707301b
+managedSecurityContext: false
+mongodb:
+  imageType: ubi9
+  name: mongodb-enterprise-server
+operator:
+  enablePVCResize: true
+  maxConcurrentReconciles: 10
+  mdbDefaultArchitecture: non-static
+  telemetry:
+    collection:
+      frequency: 1m
+    send:
+      enabled: false
+  version: 68a83a6562a059000707301b
+opsManager:
+  name: mongodb-enterprise-ops-manager-ubi
+registry:
+  agent: 268558157000.dkr.ecr.us-east-1.amazonaws.com/dev
+  appDb: quay.io/mongodb
+  database: 268558157000.dkr.ecr.us-east-1.amazonaws.com/dev
+  imagePullSecrets: image-registries-secret
+  initAppDb: 268558157000.dkr.ecr.us-east-1.amazonaws.com/dev
+  initDatabase: 268558157000.dkr.ecr.us-east-1.amazonaws.com/dev
+  initOpsManager: 268558157000.dkr.ecr.us-east-1.amazonaws.com/dev
+  operator: 268558157000.dkr.ecr.us-east-1.amazonaws.com/dev
+  opsManager: quay.io/mongodb
+search:
+  community:
+    name: mongot/community
+    repo: 268558157000.dkr.ecr.eu-west-1.amazonaws.com
+    version: 1.53.0-78-g227f2593f
+========
 registry:
   imagePullSecrets: prerelease-image-pullsecret
+>>>>>>>> fealebenpae/enterprise-search-snippets:scripts/code_snippets/tests/outputs/test_kind_search_community_snippets/01_0100_install_operator.out
 
 COMPUTED VALUES:
 agent:
@@ -23,7 +75,7 @@ community:
     repo: quay.io/mongodb
   name: mongodb-database
   registry:
-    agent: quay.io/mongodb
+    agent: 268558157000.dkr.ecr.us-east-1.amazonaws.com/dev
   resource:
     members: 3
     name: mongodb-replica-set
@@ -40,6 +92,18 @@ community:
     version: 4.4.0
 database:
   name: mongodb-kubernetes-database
+<<<<<<<< HEAD:scripts/code_snippets/tests/outputs/test_kind_search_external_mongod_snippets/04_0100_install_operator.out
+  version: 68a83a6562a059000707301b
+initAppDb:
+  name: mongodb-kubernetes-init-appdb
+  version: 68a83a6562a059000707301b
+initDatabase:
+  name: mongodb-kubernetes-init-database
+  version: 68a83a6562a059000707301b
+initOpsManager:
+  name: mongodb-kubernetes-init-ops-manager
+  version: 68a83a6562a059000707301b
+========
   version: 1.4.0-prerelease-68b5c0bb136a0d0007a4c8a2
 initAppDb:
   name: mongodb-kubernetes-init-appdb
@@ -50,10 +114,11 @@ initDatabase:
 initOpsManager:
   name: mongodb-kubernetes-init-ops-manager
   version: 1.4.0-prerelease-68b5c0bb136a0d0007a4c8a2
+>>>>>>>> fealebenpae/enterprise-search-snippets:scripts/code_snippets/tests/outputs/test_kind_search_community_snippets/01_0100_install_operator.out
 managedSecurityContext: false
 mongodb:
   appdbAssumeOldFormat: false
-  imageType: ubi8
+  imageType: ubi9
   name: mongodb-enterprise-server
   repo: quay.io/mongodb
 multiCluster:
@@ -71,7 +136,7 @@ operator:
   enableClusterMongoDBRoles: true
   enablePVCResize: true
   env: prod
-  maxConcurrentReconciles: 1
+  maxConcurrentReconciles: 10
   mdbDefaultArchitecture: non-static
   name: mongodb-kubernetes-operator
   nodeSelector: {}
@@ -88,15 +153,20 @@ operator:
     collection:
       clusters: {}
       deployments: {}
-      frequency: 1h
+      frequency: 1m
       operators: {}
     send:
+      enabled: false
       frequency: 168h
   tolerations: []
   vaultSecretBackend:
     enabled: false
     tlsSecretRef: ""
+<<<<<<<< HEAD:scripts/code_snippets/tests/outputs/test_kind_search_external_mongod_snippets/04_0100_install_operator.out
+  version: 68a83a6562a059000707301b
+========
   version: 1.4.0-prerelease-68b5c0bb136a0d0007a4c8a2
+>>>>>>>> fealebenpae/enterprise-search-snippets:scripts/code_snippets/tests/outputs/test_kind_search_community_snippets/01_0100_install_operator.out
   watchedResources:
   - mongodb
   - opsmanagers
@@ -126,9 +196,15 @@ registry:
   versionUpgradeHook: quay.io/mongodb
 search:
   community:
+<<<<<<<< HEAD:scripts/code_snippets/tests/outputs/test_kind_search_external_mongod_snippets/04_0100_install_operator.out
+    name: mongot/community
+    repo: 268558157000.dkr.ecr.eu-west-1.amazonaws.com
+    version: 1.53.0-78-g227f2593f
+========
     name: mongodb-search
     repo: quay.io/mongodb/staging
     version: latest
+>>>>>>>> fealebenpae/enterprise-search-snippets:scripts/code_snippets/tests/outputs/test_kind_search_community_snippets/01_0100_install_operator.out
 versionUpgradeHook:
   name: mongodb-kubernetes-operator-version-upgrade-post-start-hook
   version: 1.0.9
@@ -212,33 +288,6 @@ rules:
       - nodes
     verbs:
       - list
----
-# Source: mongodb-kubernetes/templates/operator-roles-webhook.yaml
-kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: mongodb-kubernetes-operator-mongodb-webhook
-rules:
-  - apiGroups:
-      - "admissionregistration.k8s.io"
-    resources:
-      - validatingwebhookconfigurations
-    verbs:
-      - get
-      - create
-      - update
-      - delete
-  - apiGroups:
-      - ""
-    resources:
-      - services
-    verbs:
-      - get
-      - list
-      - watch
-      - create
-      - update
-      - delete
 ---
 # Source: mongodb-kubernetes/templates/operator-roles-clustermongodbroles.yaml
 kind: ClusterRoleBinding
@@ -478,7 +527,11 @@ spec:
         - name: prerelease-image-pullsecret
       containers:
         - name: mongodb-kubernetes-operator
+<<<<<<<< HEAD:scripts/code_snippets/tests/outputs/test_kind_search_external_mongod_snippets/04_0100_install_operator.out
+          image: "268558157000.dkr.ecr.us-east-1.amazonaws.com/dev/mongodb-kubernetes:68a83a6562a059000707301b"
+========
           image: "quay.io/mongodb/staging/mongodb-kubernetes:1.4.0-prerelease-68b5c0bb136a0d0007a4c8a2"
+>>>>>>>> fealebenpae/enterprise-search-snippets:scripts/code_snippets/tests/outputs/test_kind_search_community_snippets/01_0100_install_operator.out
           imagePullPolicy: Always
           args:
             - -watch-resource=mongodb
@@ -510,7 +563,9 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: MDB_OPERATOR_TELEMETRY_COLLECTION_FREQUENCY
-              value: "1h"
+              value: "1m"
+            - name: MDB_OPERATOR_TELEMETRY_SEND_ENABLED
+              value: "false"
             - name: MDB_OPERATOR_TELEMETRY_SEND_FREQUENCY
               value: "168h"
             - name: CLUSTER_CLIENT_TIMEOUT
@@ -523,25 +578,43 @@ spec:
             - name: INIT_DATABASE_IMAGE_REPOSITORY
               value: quay.io/mongodb/staging/mongodb-kubernetes-init-database
             - name: INIT_DATABASE_VERSION
+<<<<<<<< HEAD:scripts/code_snippets/tests/outputs/test_kind_search_external_mongod_snippets/04_0100_install_operator.out
+              value: 68a83a6562a059000707301b
+            - name: DATABASE_VERSION
+              value: 68a83a6562a059000707301b
+========
               value: 1.4.0-prerelease-68b5c0bb136a0d0007a4c8a2
             - name: DATABASE_VERSION
               value: 1.4.0-prerelease-68b5c0bb136a0d0007a4c8a2
+>>>>>>>> fealebenpae/enterprise-search-snippets:scripts/code_snippets/tests/outputs/test_kind_search_community_snippets/01_0100_install_operator.out
             # Ops Manager
             - name: OPS_MANAGER_IMAGE_REPOSITORY
               value: quay.io/mongodb/mongodb-enterprise-ops-manager-ubi
             - name: INIT_OPS_MANAGER_IMAGE_REPOSITORY
               value: quay.io/mongodb/staging/mongodb-kubernetes-init-ops-manager
             - name: INIT_OPS_MANAGER_VERSION
+<<<<<<<< HEAD:scripts/code_snippets/tests/outputs/test_kind_search_external_mongod_snippets/04_0100_install_operator.out
+              value: 68a83a6562a059000707301b
+========
               value: 1.4.0-prerelease-68b5c0bb136a0d0007a4c8a2
+>>>>>>>> fealebenpae/enterprise-search-snippets:scripts/code_snippets/tests/outputs/test_kind_search_community_snippets/01_0100_install_operator.out
             # AppDB
             - name: INIT_APPDB_IMAGE_REPOSITORY
               value: quay.io/mongodb/staging/mongodb-kubernetes-init-appdb
             - name: INIT_APPDB_VERSION
+<<<<<<<< HEAD:scripts/code_snippets/tests/outputs/test_kind_search_external_mongod_snippets/04_0100_install_operator.out
+              value: 68a83a6562a059000707301b
+            - name: OPS_MANAGER_IMAGE_PULL_POLICY
+              value: Always
+            - name: AGENT_IMAGE
+              value: "268558157000.dkr.ecr.us-east-1.amazonaws.com/dev/mongodb-agent:108.0.12.8846-1"
+========
               value: 1.4.0-prerelease-68b5c0bb136a0d0007a4c8a2
             - name: OPS_MANAGER_IMAGE_PULL_POLICY
               value: Always
             - name: AGENT_IMAGE
               value: "quay.io/mongodb/mongodb-agent:108.0.12.8846-1"
+>>>>>>>> fealebenpae/enterprise-search-snippets:scripts/code_snippets/tests/outputs/test_kind_search_community_snippets/01_0100_install_operator.out
             - name: MDB_AGENT_IMAGE_REPOSITORY
               value: "quay.io/mongodb/mongodb-agent"
             - name: MONGODB_IMAGE
@@ -549,13 +622,13 @@ spec:
             - name: MONGODB_REPO_URL
               value: quay.io/mongodb
             - name: MDB_IMAGE_TYPE
-              value: ubi8
+              value: ubi9
             - name: PERFORM_FAILOVER
               value: 'true'
             - name: IMAGE_PULL_SECRETS
               value: prerelease-image-pullsecret
             - name: MDB_MAX_CONCURRENT_RECONCILES
-              value: "1"
+              value: "10"
             - name: POD_NAME
               valueFrom:
                 fieldRef:
@@ -564,7 +637,7 @@ spec:
               value: mongodb-kubernetes-operator
             # Community Env Vars Start
             - name: MDB_COMMUNITY_AGENT_IMAGE
-              value: "quay.io/mongodb/mongodb-agent:108.0.2.8729-1"
+              value: "268558157000.dkr.ecr.us-east-1.amazonaws.com/dev/mongodb-agent:108.0.2.8729-1"
             - name: VERSION_UPGRADE_HOOK_IMAGE
               value: "quay.io/mongodb/mongodb-kubernetes-operator-version-upgrade-post-start-hook:1.0.9"
             - name: READINESS_PROBE_IMAGE
@@ -577,9 +650,17 @@ spec:
               value: "ubi8"
             # Community Env Vars End
             - name: MDB_SEARCH_COMMUNITY_REPO_URL
+<<<<<<<< HEAD:scripts/code_snippets/tests/outputs/test_kind_search_external_mongod_snippets/04_0100_install_operator.out
+              value: "268558157000.dkr.ecr.eu-west-1.amazonaws.com"
+            - name: MDB_SEARCH_COMMUNITY_NAME
+              value: "mongot/community"
+            - name: MDB_SEARCH_COMMUNITY_VERSION
+              value: "1.53.0-78-g227f2593f"
+========
               value: "quay.io/mongodb/staging"
             - name: MDB_SEARCH_COMMUNITY_NAME
               value: "mongodb-search"
             - name: MDB_SEARCH_COMMUNITY_VERSION
               value: "latest"
+>>>>>>>> fealebenpae/enterprise-search-snippets:scripts/code_snippets/tests/outputs/test_kind_search_community_snippets/01_0100_install_operator.out
 

@@ -19,4 +19,3 @@ export OPERATOR_HELM_CHART="mongodb/mongodb-kubernetes"
 export OPERATOR_ADDITIONAL_HELM_VALUES=""
 
 export MDB_CONNECTION_STRING="mongodb://mdb-user:${MDB_USER_PASSWORD}@mdbc-rs-0.mdbc-rs-svc.${MDB_NS}.svc.cluster.local:27017/?replicaSet=mdbc-rs"
-

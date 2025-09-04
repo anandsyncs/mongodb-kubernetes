@@ -4,6 +4,8 @@ kind: MongoDBSearch
 metadata:
   name: ${MDB_RESOURCE_NAME}
 spec:
+  # no need to specify source.mongodbResourceRef if MongoDBSearch CR has the same name as MongoDB CR
+  # the operator infer it automatically
   resourceRequirements:
     limits:
       cpu: "3"

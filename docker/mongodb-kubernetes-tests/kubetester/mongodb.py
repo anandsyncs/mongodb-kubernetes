@@ -9,7 +9,6 @@ from typing import Dict, List, Optional
 import semver
 from kubeobject import CustomObject
 from kubernetes import client
-from kubetester import create_or_update_configmap, read_configmap
 from kubetester.kubetester import (
     KubernetesTester,
     build_host_fqdn,
@@ -19,8 +18,9 @@ from kubetester.kubetester import (
 )
 from kubetester.omtester import OMContext, OMTester
 from opentelemetry import trace
-from tests import test_logger
 
+from kubetester import create_or_update_configmap, read_configmap
+from tests import test_logger
 from .mongodb_common import MongoDBCommon
 from .mongodb_utils_state import in_desired_state
 from .mongotester import (
@@ -278,10 +278,8 @@ class MongoDB(CustomObject, MongoDBCommon):
         tls_cert_secret_name: str,
     ):
         ensure_nested_objects(self, ["spec", "security", "tls"])
-        self["spec"]["security"] = {
-            "certsSecretPrefix": tls_cert_secret_name,
-            "tls": {"enabled": True, "ca": issuer_ca_configmap_name},
-        }
+        self["spec"]["security"]["certsSecretPrefix"] = tls_cert_secret_name
+        self["spec"]["security"]["tls"].update({"enabled": True, "ca": issuer_ca_configmap_name})
 
     def build_list_of_hosts(self):
         """Returns the list of full_fqdn:27017 for every member of the mongodb resource"""

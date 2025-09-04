@@ -1,1 +1,1 @@
-kubectl --context "${K8S_CTX}" create namespace "${MDB_NS}"
+kubectl --context "${K8S_CTX}" create namespace "${MDB_NS}" || true
