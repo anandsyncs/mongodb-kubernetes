@@ -19,7 +19,8 @@ run 04_0305_create_mongodb_community_user_secrets.sh
 run 04_0310_create_mongodb_community_resource.sh
 run_for_output 04_0315_wait_for_community_resource.sh
 run 04_0320_create_mongodb_search_resource.sh
-run 04_0322_create_search_clusterip_service.sh
+run 04_0322_create_search_loadbalancer_service.sh
+run 04_0323_update_coredns_configmap.sh
 run 04_0325_wait_for_search_resource.sh
 run_for_output 04_0330_wait_for_community_resource.sh
 run_for_output 04_0335_show_running_pods.sh
