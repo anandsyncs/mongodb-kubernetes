@@ -57,8 +57,8 @@ spec:
               - "bypassDefaultMaxTimeMS"
   additionalMongodConfig:
     setParameter:
-      mongotHost: mdbs-search-svc.${MDB_NS}.svc.cluster.local:27027
-      searchIndexManagementHostAndPort: mdbs-search-svc.${MDB_NS}.svc.cluster.local:27027
+      mongotHost: ${MDB_SEARCH_HOSTNAME}:27027
+      searchIndexManagementHostAndPort: ${MDB_SEARCH_HOSTNAME}:27027
       skipAuthenticationToSearchIndexManagementServer: false
       searchTLSMode: disabled
   agent:

@@ -1,9 +1,9 @@
-Release "mongodb-kubernetes" has been upgraded. Happy Helming!
+Release "mongodb-kubernetes" does not exist. Installing it now.
 NAME: mongodb-kubernetes
-LAST DEPLOYED: Wed Sep  3 12:41:39 2025
+LAST DEPLOYED: Wed Sep  3 18:48:47 2025
 NAMESPACE: mongodb
 STATUS: deployed
-REVISION: 2
+REVISION: 1
 TEST SUITE: None
 USER-SUPPLIED VALUES:
 agent:
