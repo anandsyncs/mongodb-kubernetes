@@ -7,11 +7,11 @@ spec:
   source:
     external:
       hostAndPorts:
-        - mdbc-rs-0.mdbc-rs-svc.${MDB_NS}.svc.cluster.local:27017
-        - mdbc-rs-1.mdbc-rs-svc.${MDB_NS}.svc.cluster.local:27017
-        - mdbc-rs-2.mdbc-rs-svc.${MDB_NS}.svc.cluster.local:27017
+        - ${MDB_EXTERNAL_HOST_0}
+        - ${MDB_EXTERNAL_HOST_1}
+        - ${MDB_EXTERNAL_HOST_2}
       keyFileSecretRef:
-        name: mdbc-rs-keyfile
+        name: ${MDB_EXTERNAL_KEYFILE_SECRET_NAME}
         key: keyfile
       tls:
         enabled: false

@@ -1,6 +1,6 @@
 Release "mongodb-kubernetes" does not exist. Installing it now.
 NAME: mongodb-kubernetes
-LAST DEPLOYED: Thu Sep  4 15:04:51 2025
+LAST DEPLOYED: Thu Sep  4 16:47:34 2025
 NAMESPACE: mongodb
 STATUS: deployed
 REVISION: 1
